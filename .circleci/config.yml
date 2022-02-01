@@ -2,9 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:8-jdk
       - image: circleci/node:16.5.0
-
+      - image: circleci/openjdk:8-jdk
     steps:
       - checkout
       - restore_cache:
