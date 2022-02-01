@@ -1,3 +1,5 @@
 describe('fakeTestForCi', () => {
-  expect('test').toBe('test');
+  test('test', () => {
+    expect('test').toBe('test');
+  });
 });
