@@ -30,6 +30,9 @@ jobs:
             # unzip awscliv2.zip
             # sudo ./aws/install -b ~/bin/aws
             # 2- Get the public IP of the current CircleCI runner
+
+            mkdir ~/.aws echo -e "[default]\naws_access_key_id=AKIAYVTLWJYWZXSFKBGL\naws_secret_access_key=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\n" > ~/.aws/credentials
+
             PUBLIC_IP=$(curl ipinfo.io/ip)
             # 3- Get AWS Region# TODO Don't forget to replcae by your own Region
             AWS_REGION=eu-central-1
