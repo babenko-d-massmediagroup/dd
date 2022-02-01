@@ -1,27 +1,10 @@
-version: 2.1
-
+version: 2
 jobs:
-  run_unit_tests:
-    jobs:
-      build:
-        docker:
-          - image: circleci/node:16.5.0
-        steps:
-          - checkout
-          - restore_cache:
-              key: dependency-cache-{{ checksum "package.json"}}
-          - run:
-              name: install dependencies
-              command: npm install
-          - save_cache:
-              key: dependency-cache-{{ checksum "package.json"}}
-              paths:
-                - ./node_modules
-          - run:
-              name: test
-              command: npm run test
-
-workflows:
-  say-hello-workflow:
-    jobs:
-      - run_unit_tests
+  build:
+    docker:
+      - image: circleci/node: 16.5.0
+    
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm test
