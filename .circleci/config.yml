@@ -1,10 +1,7 @@
-version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/node:16.5.0
-      - image: cimg/python:3.10.2
-      - image: circleci/openjdk:8-jdk
     steps:
       - checkout
       - restore_cache:
@@ -17,6 +14,11 @@ jobs:
           paths:
             - ./node_modules
       - run: npm test
+  deploy:
+    docker:
+      - image: cimg/python:3.10.2
+      - image: circleci/openjdk:8-jdk
+    steps:
       - run:
           name: Deploy
           command: |
@@ -49,3 +51,10 @@ jobs:
             # 8- Remove the ingress rule
             ~/bin/aws ec2 revoke-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
               --protocol tcp --port 22 --cidr $PUBLIC_IP/24
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test
+      - deploy
